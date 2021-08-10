@@ -21,12 +21,11 @@ $(function(){
                             data:[r.data.decideCnt, r.data.examCnt - r.data.decideCnt],
                             backgroundColor:["rgba(255, 0, 0, 0.4)", "rgba(0, 0, 255, 0.4)"]
                         }
-
                     ]
                 }
             })
-
         }
+        
     })
 
     let ctx = $("#regional_status");
