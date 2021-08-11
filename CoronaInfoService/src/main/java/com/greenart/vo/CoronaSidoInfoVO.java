@@ -1,18 +1,16 @@
 package com.greenart.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class Corona_LocalVO {
+public class CoronaSidoInfoVO {
     private Integer seq;
     private Date createDt;
     private Integer deathCnt;
     private Integer defCnt;
     private String gubun;
-    private String gubunCn;
-    private String gubunEn;
     private Integer incDec;
     private Integer isolClearCnt;
     private Integer isolIngCnt;
