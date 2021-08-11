@@ -10,6 +10,16 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
     <script src="/assets/js/index.js"></script>
+    <script>
+    /*    let date = new Date();
+        let strDate = date.getFullYear()+"-"+leadingZero(date.getMonth()+1)+"-"+leadingZero(date.getDate());
+
+        document.write("<h1>"+strDate+"</h1>");
+
+        function leadingZero(n){
+            return n<10?"0"+n:""+n;
+        } */
+    </script>
 </head>
 <body>
     <div class="container">
@@ -113,6 +123,7 @@
                         <button id="region_next">&gt;</button>
                     </div>
                 </div>
+            
             </div>
         </div>
     </div>

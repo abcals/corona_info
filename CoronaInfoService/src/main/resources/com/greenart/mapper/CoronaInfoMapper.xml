@@ -25,5 +25,15 @@
     </insert>
     <select id="selectCoronaSidoInfo" resultType="com.greenart.vo.CoronaSidoInfoVO">
         select * from corona_sido where date_format(createDt, "%Y-%m-%d") = str_to_date(#{date}, "%Y-%m-%d") and gubun != '합계';
-    </select>   
+    </select>
+    <insert id="insertCoronaAgeInfo">
+        INSERT INTO corona_age
+        (confCase, createDt, death, gubun)
+        VALUES
+        (#{confCase}, #{createDt}, #{death}, #{gubun});
+
+    </insert>
+    <select id="selectCoronaAgeInfo" resultType="com.greenart.vo.CoronaAgeInfoVO">
+        select * from corona_age where date_format(createDt, "%Y-%m-%d") = str_to_date(#{date}, "%Y-%m-%d") and gubun != '남성' and gubun != '여성';
+    </select>
 </mapper>

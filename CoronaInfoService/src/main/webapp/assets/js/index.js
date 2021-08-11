@@ -31,6 +31,12 @@ $(function(){
         url:"/api/coronaSidoInfo/today",
         success:function(r){
             console.log(r)
+            let date = new Date();
+            let strDate = date.getFullYear()+"-"+leadingZero(date.getMonth()+1)+"-"+leadingZero(date.getDate());
+            function leadingZero(n){
+                return n<10?"0"+n:""+n;
+            }
+
             let sidoName = new Array();
             let defCnt = new Array();
         
@@ -86,7 +92,7 @@ $(function(){
                 data:{
                     labels:sidoName,
                     datasets:[{
-                        label:"2021-08-09 신규확진",
+                        label:strDate+" 신규확진",
                         data:defCnt,
                         backgroundColor:['rgba(255,30,30,0.7)']
                     }]
@@ -95,6 +101,42 @@ $(function(){
         }
     })
 
+    $.ajax({
+        type:"get",
+        url:"/api/coronaAgeInfo/today",
+        success:function(r){
+            console.log(r)
+            let date = new Date();
+            let strDate = date.getFullYear()+"-"+leadingZero(date.getMonth()+1)+"-"+leadingZero(date.getDate());
+            function leadingZero(n){
+                return n<10?"0"+n:""+n;
+            }
+            let age = new Array();
+            let confCase = new Array();
+            for(let i=0; i<r.data.length; i++){
+                let Age = r.data[i].gubun;
+                let total_confCase = r.data[i].confCase;
+                age.push(Age);
+                confCase.push(total_confCase);
+            }
+
+            let ctx3 = $("#vaccine_chart");
+            let vaccineChart = new Chart(ctx3, {
+            type:'bar',
+            options:{
+                responsive:false
+            },
+            data:{
+                labels:age,
+                datasets:[{
+                    label:strDate+" 확진자 수",
+                    data:confCase,
+                    backgroundColor:['rgba(30,255,30,0.7)']
+                }]
+            }
+        })
+        }
+    })
 
     // let ctx2 = $("#confirmed_chart");
     // let confirmed_chart = new Chart(ctx2, {
@@ -115,26 +157,26 @@ $(function(){
     //     }
     // })
 
-    let ctx3 = $("#vaccine_chart");
-    let vaccineChart = new Chart(ctx3, {
-        type:'bar',
-        options:{
-            responsive:false
-        },
-        data:{
-            labels:['서울', '경기', '대구', '인천', '부산', '경남', '경북', '충남', '강원', '대전', '충북', '광주', '울산', '전북', '전남', '제주', '세종'],
-            datasets:[{
-                label:"2021-08-09 1차 접종현황",
-                data:[415, 408, 86, 65, 123, 88, 30, 68, 24, 42, 39, 19, 25, 21, 14, 11, 1],
-                backgroundColor:['rgba(30,255,30,0.7)']
-            },
-            {
-                label:"2021-08-09 2차 접종현황",
-                data:[415, 408, 86, 65, 123, 88, 30, 68, 24, 42, 39, 19, 25, 21, 14, 11, 1],
-                backgroundColor:['rgba(30,30,255,0.7)']
-            }]
-        }
-    })
+    // let ctx3 = $("#vaccine_chart");
+    // let vaccineChart = new Chart(ctx3, {
+    //     type:'bar',
+    //     options:{
+    //         responsive:false
+    //     },
+    //     data:{
+    //         labels:['서울', '경기', '대구', '인천', '부산', '경남', '경북', '충남', '강원', '대전', '충북', '광주', '울산', '전북', '전남', '제주', '세종'],
+    //         datasets:[{
+    //             label:"2021-08-09 1차 접종현황",
+    //             data:[415, 408, 86, 65, 123, 88, 30, 68, 24, 42, 39, 19, 25, 21, 14, 11, 1],
+    //             backgroundColor:['rgba(30,255,30,0.7)']
+    //         },
+    //         {
+    //             label:"2021-08-09 2차 접종현황",
+    //             data:[415, 408, 86, 65, 123, 88, 30, 68, 24, 42, 39, 19, 25, 21, 14, 11, 1],
+    //             backgroundColor:['rgba(30,30,255,0.7)']
+    //         }]
+    //     }
+    // })
 
 
 })

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.greenart.mapper.CoronaInfoMapper;
+import com.greenart.vo.CoronaAgeInfoVO;
 import com.greenart.vo.CoronaInfoVO;
 import com.greenart.vo.CoronaSidoInfoVO;
 
@@ -58,13 +59,14 @@ public class CoronaInfoService {
     public void insertCoronaSidoInfo(CoronaSidoInfoVO vo){
         mapper.insertCoronaSidoInfo(vo);
     }
+    
     public List<CoronaSidoInfoVO> selectTodayCoronaSidoInfo(){
         Calendar now = Calendar.getInstance();
         Calendar standard = Calendar.getInstance();
         standard.set(Calendar.HOUR, 10);
         standard.set(Calendar.MINUTE, 30);
         standard.set(Calendar.SECOND, 10);
-
+        
         if(now.getTimeInMillis() < standard.getTimeInMillis()){
             // 현재 접속시간이 기준시간 (10시 30분 10초) 보다 이전일 때
             // 하루 이전 날자로 변경
@@ -72,10 +74,33 @@ public class CoronaInfoService {
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dt = formatter.format(now.getTime());
-
+        
         return mapper.selectCoronaSidoInfo(dt);
     }
     public List<CoronaSidoInfoVO> selectCoronaSidoInfoVO(String date){
         return mapper.selectCoronaSidoInfo(date);
     }
+    
+    public List<CoronaAgeInfoVO> selectCoronaAgeInfoVO(String date){
+        return mapper.selectCoronaAgeInfo(date);
+    }
+    public List<CoronaAgeInfoVO> selectTodayCoronaAgeInfo(){
+        Calendar now = Calendar.getInstance();
+        Calendar standard = Calendar.getInstance();
+        standard.set(Calendar.HOUR, 10);
+        standard.set(Calendar.MINUTE, 30);
+        standard.set(Calendar.SECOND, 20);
+        
+        if(now.getTimeInMillis() < standard.getTimeInMillis()){
+            now.add(Calendar.DATE,-1);
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dt = formatter.format(now.getTime());
+        
+        return mapper.selectCoronaAgeInfo(dt);
+    }
+    public void insertCoronaAgeInfo(CoronaAgeInfoVO vo){
+        mapper.insertCoronaAgeInfo(vo);
+    }
+    
 }
