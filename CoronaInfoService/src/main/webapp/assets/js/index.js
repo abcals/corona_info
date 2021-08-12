@@ -1,4 +1,62 @@
 $(function(){
+    $.ajax({
+        type:"get",
+        url:"/api/corona_t/age/today",
+        success:function(r){
+            let confArr = new Array();
+            let confLabel = new Array(); 
+            for(let i=0; i<r.data.length; i++){
+                confArr.push(r.data[i].confCase);
+                confLabel.push(r.data[i].gubun+"대");
+            }
+            let ageChart = new Chart($("#age_chart"),{
+                type:"bar",
+                options:{
+                    responsive:false,
+                },
+                data:{
+                    labels:confLabel,
+                    datasets:[
+                        {
+                            label:r.dt+" 연령대 별 확진",
+                            data:confArr,
+                            backgroundColor:["rgba(255, 0, 0, 0.4)"]
+                        }
+                    ]
+                }
+            })
+        }
+    });
+
+    $.ajax({
+        type:"get",
+        url:"/api/corona_t/gen/today",
+        success:function(r){
+            console.log(r);
+            let confArr = new Array();
+            let confLabel = new Array(); 
+            for(let i=0; i<r.data.length; i++){
+                confArr.push(r.data[i].confCase);
+                confLabel.push(r.data[i].gubun);
+            }
+            let genChart = new Chart($("#gen_chart"),{
+                type:"pie",
+                options:{
+                    responsive:false,
+                },
+                data:{
+                    labels:confLabel,
+                    datasets:[
+                        {
+                            label:r.dt+" 성별 확진 비율",
+                            data:confArr,
+                            backgroundColor:["rgba(255, 0, 0, 0.4)", "rgba(0, 0, 255, 0.4)"]
+                        }
+                    ]
+                }
+            })
+        }
+    });
 
     $.ajax({
         type:"get",
@@ -25,7 +83,8 @@ $(function(){
                 }
             })
         }
-    })
+    });
+
     $.ajax({
         type:"get",
         url:"/api/coronaSidoInfo/today",
@@ -99,9 +158,37 @@ $(function(){
                 }
             })
         }
-    })
+    });
 
     $.ajax({
+        type:"get",
+        url:"/api/corona/vaccine/today",
+        success:function(r){
+            console.log(r)
+            let ctx3 = $("#vaccine_chart");
+            let vaccineChart = new Chart(ctx3, {
+                type:'bar',
+                options:{
+                    responsive:false
+                },
+                data:{
+                    labels:['서울', '경기', '대구', '인천', '부산', '경남', '경북', '충남', '강원', '대전', '충북', '광주', '울산', '전북', '전남', '제주', '세종'],
+                    datasets:[{
+                        label:"2021-08-09 1차 접종현황",
+                        data:[415, 408, 86, 65, 123, 88, 30, 68, 24, 42, 39, 19, 25, 21, 14, 11, 1],
+                        backgroundColor:['rgba(30,255,30,0.7)']
+                    },
+                    {
+                        label:"2021-08-09 2차 접종현황",
+                        data:[415, 408, 86, 65, 123, 88, 30, 68, 24, 42, 39, 19, 25, 21, 14, 11, 1],
+                        backgroundColor:['rgba(30,30,255,0.7)']
+                    }]
+                }
+            })
+        }
+    })
+
+    /* $.ajax({
         type:"get",
         url:"/api/coronaAgeInfo/today",
         success:function(r){
@@ -117,7 +204,7 @@ $(function(){
                 let Age = r.data[i].gubun;
                 let total_confCase = r.data[i].confCase;
                 age.push(Age);
-                confCase.push(total_confCase);
+                confCase.push(cnt);
             }
 
             let ctx3 = $("#vaccine_chart");
@@ -136,7 +223,7 @@ $(function(){
             }
         })
         }
-    })
+    }) */
 
     // let ctx2 = $("#confirmed_chart");
     // let confirmed_chart = new Chart(ctx2, {

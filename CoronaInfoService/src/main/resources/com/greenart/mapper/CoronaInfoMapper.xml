@@ -36,4 +36,34 @@
     <select id="selectCoronaAgeInfo" resultType="com.greenart.vo.CoronaAgeInfoVO">
         select * from corona_age where date_format(createDt, "%Y-%m-%d") = str_to_date(#{date}, "%Y-%m-%d") and gubun != '남성' and gubun != '여성';
     </select>
+    <insert id="insertCoronaAge">
+        INSERT INTO corona_age_t
+        (confCase, confCaseRate, createDt, criticalRate, death, deathRate, gubun)
+        VALUES
+        (#{confCase}, #{confCaseRate}, #{createDt}, #{criticalRate}, #{death}, #{deathRate}, #{gubun});
+    </insert>
+    <select id="selectCoronaAge" resultType="com.greenart.vo.CoronaAgeInfoVO_t">
+        select * from corona_age_t
+        where
+	    gubun != '여성' and gubun != '남성' and
+	    date_format(createDt, "%Y-%m-%d") = str_to_date(#{date}, "%Y-%m-%d");
+    </select>
+    <select id="selectCoronaGen" resultType="com.greenart.vo.CoronaAgeInfoVO_t">
+        select * from corona_age_t 
+        where
+	    (gubun = '여성' or gubun = '남성') and
+	    date_format(createDt, "%Y-%m-%d") = str_to_date(#{date}, "%Y-%m-%d");
+    </select>
+    <insert id="insertCoronaVaccineInfo">
+        INSERT INTO corona_vaccine
+        (accFirstCnt, accSecondCnt, regDt, firstCnt, secondCnt, sido)
+        VALUES
+        (#{accFirstCnt}, #{accSecondCnt}, #{regDt}, #{firstCnt}, #{secondCnt}, #{sido});
+    </insert>
+    <select id="selectCoronaVaccineInfo" resultType="com.greenart.vo.CoronaVaccineInfoVO">
+        select * from corona_vaccine
+        where
+	    date_format(regDt, '%Y-%m-%d') = str_to_date(#{date}, '%Y-%m-%d') and
+	    sido != '전국';
+    </select>
 </mapper>
