@@ -110,12 +110,11 @@ public class CoronaInfoService {
     public void insertCoronaAge(CoronaAgeInfoVO_t vo){
         mapper.insertCoronaAge(vo);
     }
-
     public List<CoronaAgeInfoVO_t> selectCoronaTodayGen(){
         Calendar now = Calendar.getInstance();
         Calendar standard = Calendar.getInstance();
-        standard.set(Calendar.HOUR, 15);
-        standard.set(Calendar.MINUTE, 00);
+        standard.set(Calendar.HOUR, 16);
+        standard.set(Calendar.MINUTE, 10);
         standard.set(Calendar.SECOND, 00);
         
         if(now.getTimeInMillis() < standard.getTimeInMillis()){
@@ -126,13 +125,12 @@ public class CoronaInfoService {
 
         return mapper.selectCoronaGen(dt);
     }
-    
     public Map<String ,Object> selectCoronaTodayAge(){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         Calendar now = Calendar.getInstance();
         Calendar standard = Calendar.getInstance();
-        standard.set(Calendar.HOUR_OF_DAY, 15);
-        standard.set(Calendar.MINUTE, 00);
+        standard.set(Calendar.HOUR_OF_DAY, 16);
+        standard.set(Calendar.MINUTE, 10);
         standard.set(Calendar.SECOND, 00);
         
         if(now.getTimeInMillis() < standard.getTimeInMillis()){
@@ -152,6 +150,7 @@ public class CoronaInfoService {
     public List<CoronaAgeInfoVO_t> selectCoronaGen(String date){
         return mapper.selectCoronaGen(date);
     }
+
 
     public void insertCoronaVaccineInfo(CoronaVaccineInfoVO vo){
         mapper.insertCoronaVaccineInfo(vo);

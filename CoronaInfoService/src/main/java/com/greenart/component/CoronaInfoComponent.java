@@ -210,7 +210,7 @@ public class CoronaInfoComponent {
         
         }
     }*/
-    @Scheduled(cron="0 50 14 * * *")
+    @Scheduled(cron="0 0 16 * * *")
     public void getCoronaAgeInfo() throws Exception{
         Date dt = new Date();
         SimpleDateFormat dtFormatter = new SimpleDateFormat("YYYYMMdd");
@@ -329,7 +329,7 @@ public class CoronaInfoComponent {
             vo.setSido(sido);
 
             service.insertCoronaVaccineInfo(vo);
-            
+
         }
     }
 }
