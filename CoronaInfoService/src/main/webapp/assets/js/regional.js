@@ -47,6 +47,7 @@ $(function(){
     })
     $("#date").datepicker();
     $("#date").datepicker("setDate", new Date());
+     
     $("#date").change(function(){
         let region = $("#region_select").find("option:selected").val();
         let date = $("#date").val();
